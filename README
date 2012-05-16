@@ -1,0 +1,2 @@
+The portaudio19-dev package conflicts with skype (indirectly through dependant packages).
+You may eaither install portaudio19-dev and remove skype (or install skype some other way) or use these precompiled binaries (or compile portaudio19-dev yourself).
