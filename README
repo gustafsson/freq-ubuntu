@@ -1,17 +1,25 @@
 portaudio
 ---------
-The portaudio19-dev package conflicts with skype (indirectly through dependant packages).
+The portaudio19-dev package conflicts with skype (indirectly through dependant packages, i.e libjack0).
 You may eaither install portaudio19-dev and remove skype (or install skype some other way) or use these precompiled binaries (or compile portaudio19-dev yourself).
 
 Download:
 http://www.portaudio.com/download.html
 
-jack, oss, alsa and asihpi support will be built if they are available and can be auto-detected
-sudo apt-get install libjack-dev oss4-dev libclalsadrv-dev
+jack, oss, alsa and asihpi support will be built if they are available and can be auto-detected.
+libjack-dev can't be installed because it requires libjack0. See above.
+oss is included in the kernel.
+asihpi, dunno.
+sudo apt-get install libclalsadrv-dev
 
 Run:
-./configure --enable-cxx --disable-shared
+./configure --enable-cxx --disable-static --enable-shared
 make
 ubuntulibfolder=~/dev/sonicawe/sonicawe/lib/sonicawe-ubuntulib
-cp lib/.libs/libportaudio.a bindings/cpp/lib/.libs/libportaudiocpp.a $ubuntulibfolder/lib
-cp include/portaudio.h $ubuntulibfolder/include
+mkdir -p $ubuntulibfolder/lib
+mkdir -p $ubuntulibfolder/include
+cp -d lib/.libs/libportaudio.so* bindings/cpp/lib/.libs/libportaudiocpp.so* $ubuntulibfolder/lib/.
+cp -r include/portaudio.h bindings/cpp/include/portaudiocpp $ubuntulibfolder/include/.
+
+sudo mkdir -p /opt/muchdifferent/sonicawe
+sudo cp -d $ubuntulibfolder/lib/* /opt/muchdifferent/sonicawe
